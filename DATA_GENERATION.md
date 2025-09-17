@@ -1,1 +1,0 @@
-This is a markdown file and it should be called DATA_GENERATION.md

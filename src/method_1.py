@@ -30,10 +30,8 @@ class DecksInt:
       
       subdir = os.path.join(self.base_path, f"{num_decks}_decks_seed_{self.random_seed}")
       os.makedirs(subdir, exist_ok=True) 
-            
+
       for i in range(0, num_decks, max_decks_per_file):
-          # chunk = self.decks[i : i + max_decks_per_file]
-          # filename = f"{base_filepath}decks_{i}-{i + chunk.shape[0]}.npz"
           chunk = self.decks[i : i + max_decks_per_file]
           start, end = i, i + chunk.shape[0] - 1
           filename = os.path.join(subdir, f"decks_{start+1}-{end+1}.npz")

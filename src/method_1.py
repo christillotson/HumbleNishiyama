@@ -6,7 +6,7 @@ import random
 # class that generates a numpy array of numpy arrays of decks.
 
 class DecksInt:
-  def __init__(self, num_decks, random_seed = 440, write_decks_to_file = True, base_path = "../data/method_1/"):
+  def __init__(self, num_decks, random_seed = 440, write_decks_to_file = True, base_path = "./data/method_1/"):
     self.num_decks = num_decks
     self.random_seed = random_seed
     self.rng = np.random.default_rng(random_seed)
@@ -28,6 +28,7 @@ class DecksInt:
   def save_decks(self, max_decks_per_file = 500_000):
       num_decks = self.decks.shape[0]
       
+      os.makedirs(self.base_path, exist_ok=True)
       subdir = os.path.join(self.base_path, f"{num_decks}_decks_seed_{self.random_seed}")
       os.makedirs(subdir, exist_ok=True) 
             

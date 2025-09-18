@@ -2,3 +2,4 @@ num_decks,random_seed,time_taken,method
 20,460,5.000804,test_func
 40,460,5.000555,test_func
 60,460,5.000193,test_func
+1000,440,5.001059,test_func,8554

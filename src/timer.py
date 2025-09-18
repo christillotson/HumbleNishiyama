@@ -34,7 +34,13 @@ def timer(fun: Callable) -> Callable:
 
         num_decks = _value_for_param("num_decks")
         random_seed = _value_for_param("random_seed")
-        time_taken = t1 - t0
+        base_path = _value_for_param("base_path")
+        time_taken = t1 - t0 # this is in seconds
+
+        # need to calculate path based on specific values passed
+        full_data_path = os.path.join(base_path, f"{num_decks}_decks_seed_{random_seed}")
+        
+        total_size = sum(entry.stat().st_size for entry in os.scandir(full_data_path) if entry.is_file())
 
         print(f"Ran for {time_taken:.6f} sec(s)")
 
@@ -42,8 +48,8 @@ def timer(fun: Callable) -> Callable:
         need_header = not os.path.exists(LOG_FILE) or os.path.getsize(LOG_FILE) == 0
         with open(LOG_FILE, "a", encoding="utf-8") as fh:
             if need_header:
-                fh.write("num_decks,random_seed,time_taken,method\n")
-            fh.write(f"{num_decks},{random_seed},{time_taken:.6f},{fun.__name__}\n")
+                fh.write("num_decks,random_seed,time_taken,method,storage_size\n")
+            fh.write(f"{num_decks},{random_seed},{time_taken:.6f},{fun.__name__},{total_size}\n")
 
         return results   # return AFTER logging
     

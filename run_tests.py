@@ -1,4 +1,4 @@
-# TESTING OUT METHOD ONE and its ability to generate the data into the data/method_1 folder
+# TESTING OUT METHOD TWO and its ability to generate the data into the data/method_2 folder
 
 from src.method_2 import DecksStr
 
@@ -11,3 +11,5 @@ for num_decks in NUM_DECKS_TO_TEST:
     print(decks.decks.nbytes, "bytes")
     print(decks.decks.nbytes / (1024**2), "MB")
     print('---')
+
+# This will create the data directory for method_2 if it does not exist, so it is safe to delete the data folder.

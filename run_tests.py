@@ -11,3 +11,5 @@ for num_decks in NUM_DECKS_TO_TEST:
     print(decks.decks.nbytes, "bytes")
     print(decks.decks.nbytes / (1024**2), "MB")
     print('---')
+
+# Method 1 works and generates the files, even if data directory is missing, so it is safe to delete it.

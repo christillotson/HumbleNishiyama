@@ -6,21 +6,21 @@ from src.method_2 import DecksStr
 from src.timer import timer
 
 @timer
-def method_1_funct(num_decks, random_seed, write_decks_to_file = True, base_path = "../data/method_1/"):
+def method_1_funct(num_decks, random_seed, write_decks_to_file = True, base_path = "./data/method_1/"):
     """
     a function that runs the class DecksInt (method_1).
     The reason for this is so that the wrapper (which works on functions) that runs quantitative tests on our output
     can actually run effectively. 
     """
-    decks = DecksInt(num_decks, random_seed, write_decks_to_file = True, base_path = "../data/method_1/")
+    decks = DecksInt(num_decks, random_seed, write_decks_to_file = True, base_path = "./data/method_1/")
     return decks.decks
 
 @timer
-def method_2_funct(num_decks, random_seed, write_decks_to_file = True, base_path = "../data/method_2/"):
+def method_2_funct(num_decks, random_seed, write_decks_to_file = True, base_path = "./data/method_2/"):
     """    
     a function that runs the class DecksStr (method_2).
     The reason for this is so that the wrapper (which works on functions) that runs quantitative tests on our output
     can actually run effectively.    
     """
-    decks = DecksStr(num_decks, random_seed, write_decks_to_file = True, base_path = "../data/method_2/")
+    decks = DecksStr(num_decks, random_seed, write_decks_to_file = True, base_path = "./data/method_2/")
     return decks.decks

@@ -13,3 +13,5 @@ then
 `uv run python run_tests.py`
 
 This will create the data folder locally, containing the deck files (.npz) for each method, as well as a log file (.txt) and summary of results (.txt) in a table. These results will also be printed to the terminal.
+
+See our explanations for methods 1 and 2 in DataGeneration.md

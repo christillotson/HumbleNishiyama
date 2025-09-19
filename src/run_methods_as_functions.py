@@ -3,21 +3,24 @@
 
 from src.method_1 import DecksInt
 from src.method_2 import DecksStr
+from src.timer import timer
 
-def method_1(num_decks, random_seed, write_decks_to_file = True, base_path = "./data/method_1/"):
+@timer
+def method_1_funct(num_decks, random_seed, write_decks_to_file = True, base_path = "../data/method_1/"):
     """
     a function that runs the class DecksInt (method_1).
     The reason for this is so that the wrapper (which works on functions) that runs quantitative tests on our output
     can actually run effectively. 
     """
-    decks = DecksInt(num_decks, random_seed, write_decks_to_file = True, base_path = "./data/method_1/")
-    return decks
+    decks = DecksInt(num_decks, random_seed, write_decks_to_file = True, base_path = "../data/method_1/")
+    return decks.decks
 
-def method_2(num_decks, random_seed, write_decks_to_file = True, base_path = "./data/method_2/"):
+@timer
+def method_2_funct(num_decks, random_seed, write_decks_to_file = True, base_path = "../data/method_2/"):
     """    
     a function that runs the class DecksStr (method_2).
     The reason for this is so that the wrapper (which works on functions) that runs quantitative tests on our output
     can actually run effectively.    
     """
-    decks = DecksStr(num_decks, random_seed, write_decks_to_file = True, base_path = "./data/method_2/")
-    return decks
+    decks = DecksStr(num_decks, random_seed, write_decks_to_file = True, base_path = "../data/method_2/")
+    return decks.decks

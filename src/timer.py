@@ -8,7 +8,7 @@ def timer(fun: Callable) -> Callable:
     sig = inspect.signature(fun)
 
     SHOW_ARGS = True
-    LOG_FILE = "../data/wrapper_log.txt"
+    LOG_FILE = "./data/wrapper_log.txt"
 
     @wraps(fun)
     def _wrapper(*args, **kwargs):

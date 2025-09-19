@@ -11,8 +11,8 @@ def summarize_experiments_to_file(log_path: str, filename: str = "experiment_sum
     df = pd.read_csv(log_path)
     
     # Convert bytes columns to MB
-    df["storage_mb"] = df["storage_bytes"] / (1024**2)
-    df["memory_mb"] = df["memory_bytes"] / (1024**2)
+    df["storage_mb"] = df["storage_bytes"] / (1000**2)
+    df["memory_mb"] = df["memory_bytes"] / (1000**2)
 
     # Ensure the data folder exists
     data_folder = "./data"

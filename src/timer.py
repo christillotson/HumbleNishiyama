@@ -57,7 +57,10 @@ def timer(fun: Callable) -> Callable:
 
         # print(f"Memory size is {results.nbytes}")
 
-        # Write header only if file doesn’t exist or is empty
+        # Make file (and through that, data folder) since data needs to exist for this to work
+        os.makedirs(os.path.dirname(LOG_FILE), exist_ok=True)
+        
+        # Write header only if is empty
         need_header = not os.path.exists(LOG_FILE) or os.path.getsize(LOG_FILE) == 0
         with open(LOG_FILE, "a", encoding="utf-8") as fh:
             if need_header:

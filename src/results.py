@@ -9,6 +9,10 @@ def summarize_experiments_to_file(log_path: str, filename: str = "experiment_sum
     """
 
     df = pd.read_csv(log_path)
+    
+    # Convert bytes columns to MB
+    df["storage_mb"] = df["storage_bytes"] / (1024**2)
+    df["memory_mb"] = df["memory_bytes"] / (1024**2)
 
     # Ensure the data folder exists
     data_folder = "./data"
@@ -16,10 +20,11 @@ def summarize_experiments_to_file(log_path: str, filename: str = "experiment_sum
     filepath = os.path.join(data_folder, filename)
 
     # Compute stats only for numeric columns
-    numeric_cols = ["storage_bytes", "memory_bytes", "time_taken"]
+    numeric_cols = ["storage_mb", "memory_mb", "time_taken"]
     
     # Group by num_decks first, then method
     grouped = df.groupby(["num_decks", "method"])
+    # this is where the actual statistical values are being calculated
     summary = grouped[numeric_cols].agg(["mean", "median", "std"])
 
     print("-------------------")

@@ -15,11 +15,11 @@ if os.path.exists(summary_log_path):
     print("We found an existing statistical summary log file with data already in it -- it has been deleted.")
 
 # we will run 5 experiments, on 5 different numbers of decks of cards
-NUM_DECKS_TO_TEST = [1_000, 10_000, 100_000]
+NUM_DECKS_TO_TEST = [1_000, 10_000, 100_000, 1_000_000, 2_000_000]
 
 # and for each number of cards we will get the mean and stdev for a certain number of repetitions.
 # there will be more repititions for smaller values of num_decks, and fewer repitions for larger values of num_decks.
-NUM_TIMES_TO_RUN_EXPERIMENT = [30, 15, 10]
+NUM_TIMES_TO_RUN_EXPERIMENT = [30, 20, 15, 5, 5]
 
 # we are going to start at random seed 440, and add 1 to that seed with each iteration.
 random_seed = 440

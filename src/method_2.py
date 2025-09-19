@@ -28,7 +28,7 @@ class DecksStr:
     self.rng.shuffle(deck)
 
     ## special stuff that will take a long time maybe for DecksStr but hopefully compress better?
-    begin_one_list = ['1'] + deck
+    begin_one_list = ['1'] + deck.tolist()
     joined_deck = int(''.join(begin_one_list))
     return joined_deck
 

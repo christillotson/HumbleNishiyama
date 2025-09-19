@@ -4,6 +4,7 @@ def write_DataGeneration():
     # 1. Check if DataGeneration.md exists in the current directory, and delete if it does
     output_file = "DataGeneration.md"
     if os.path.exists(output_file):
+        print("DataGeneration.md exists. Removing it to add new version.")
         os.remove(output_file)
 
     # 2a. Read text from Explanation.txt

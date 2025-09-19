@@ -38,14 +38,16 @@ def summarize_experiments_to_file(log_path: str, filename: str = "experiment_sum
             methods = df[df["num_decks"] == num_decks]["method"].unique()
             for method in methods:
                 header = f"\n=== Method: {method} | num_decks: {num_decks} ==="
+                header2 = f"\n{'attribute':15s} | {'mean':10s} | {'median':10s} | {'std':10s}"
                 print(header)
-                f.write(header + "\n")
+                print(header2)
+                f.write(header + "\n" + header2 + "\n")
                 
                 for col in numeric_cols:
                     mean_val = summary.loc[(num_decks, method), (col, "mean")]
                     median_val = summary.loc[(num_decks, method), (col, "median")]
                     std_val = summary.loc[(num_decks, method), (col, "std")]
-                    line = f"{col:15s} | mean={mean_val:10.2f} | median={median_val:10.2f} | std={std_val:10.2f}"
+                    line = f"{col:15s} | {mean_val:10.2f} | {median_val:10.2f} | {std_val:10.2f}"
                     print(line)
                     f.write(line + "\n")
 

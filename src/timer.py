@@ -4,11 +4,11 @@ import inspect
 import os
 from functools import wraps
 
-SHOW_ARGS = True
-LOG_FILE = "wrapper_log.txt"
-
 def timer(fun: Callable) -> Callable:
     sig = inspect.signature(fun)
+
+    SHOW_ARGS = True
+    LOG_FILE = "wrapper_log.txt"
 
     @wraps(fun)
     def _wrapper(*args, **kwargs):

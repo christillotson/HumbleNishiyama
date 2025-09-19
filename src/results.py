@@ -6,6 +6,19 @@ def summarize_experiments_to_file(log_path: str, filename: str = "experiment_sum
     For each experiment (unique num_decks), prints stats for each method consecutively,
     compute mean, median, and std of numeric columns,
     save results to a text file, and print to console.
+
+    Parameters:
+
+        log_path (str)
+            Path to wrapper_log.txt
+        filename(str), default "experiment_summary.txt
+            Name that is given to experiment summary
+
+    Returns:
+        Nothing
+
+    FUTURE:
+        This should probably be refactored to draw from a config.py with paths defined there.
     """
 
     df = pd.read_csv(log_path)
@@ -19,7 +32,7 @@ def summarize_experiments_to_file(log_path: str, filename: str = "experiment_sum
     os.makedirs(data_folder, exist_ok=True)
     filepath = os.path.join(data_folder, filename)
 
-    # Compute stats only for numeric columns
+    # Compute stats only for columns we care about
     numeric_cols = ["storage_mb", "memory_mb", "time_taken"]
     
     # Group by num_decks first, then method
@@ -36,6 +49,9 @@ def summarize_experiments_to_file(log_path: str, filename: str = "experiment_sum
         for num_decks in sorted(df["num_decks"].unique()):
             # Get all methods for this experiment
             methods = df[df["num_decks"] == num_decks]["method"].unique()
+
+            # Padding here needs to be consistent to print nicely, though shouldn't matter in markdown table
+            # So if changed here, scroll down and change it in the 'for col in numeric_cols:' loop
             for method in methods:
                 header = f"\n=== Method: {method} | num_decks: {num_decks} ==="
                 header2 = f"\n{'attribute':15s} | {'mean':10s} | {'median':10s} | {'std':10s}"
@@ -45,6 +61,7 @@ def summarize_experiments_to_file(log_path: str, filename: str = "experiment_sum
                 print(header_sep)
                 f.write(header + "\n" + header2 + "\n" + header_sep + "\n")
                 
+                # Get the mean, median, and std of the statistic we care about
                 for col in numeric_cols:
                     mean_val = summary.loc[(num_decks, method), (col, "mean")]
                     median_val = summary.loc[(num_decks, method), (col, "median")]

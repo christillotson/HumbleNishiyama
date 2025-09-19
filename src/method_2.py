@@ -5,8 +5,8 @@ import random
 
 class DecksStr:
   """
-  class that generates a numpy array of numpy arrays of 'decks of cards.'
-  The decks of cards are actually represented by the integers 0 and 1 combined into one long integer
+  Class that generates a numpy array of numpy arrays of 'decks of cards.'
+  The decks of cards are actually represented by the integers 0 and 1 combined into one long integer,
   and these 'decks of cards' are saved in .npz files with a specified maximum of 500,000 decks per file.
   """
   def __init__(self, num_decks, random_seed = 440, write_decks_to_file = True, base_path = "./data/method_2/"):
@@ -21,20 +21,20 @@ class DecksStr:
 
   def make_one_deck(self) -> np.array:
     """
-    Function that makes a numpy array of 26 0s and 1s (in integer format), 
+    Function that makes a numpy array of 26 0s and 1s (in string format), 
     then shuffles it based on the prior defined random seed.
     """
     deck = np.repeat(['0', '1'], 26)
     self.rng.shuffle(deck)
 
-    ## special stuff that will take a long time maybe for DecksStr but hopefully compress better?
+    ## special stuff that is the core of the difference of DecksStr
     begin_one_list = ['1'] + deck.tolist()
     joined_deck = int(''.join(begin_one_list))
     return joined_deck
 
   def make_many_decks(self, num_decks: int) -> np.array:
     """
-    Function that makes a numpy array *of* numpy arrays, each containing a randomized deck of 'cards' (0 and 1 integers).
+    Function that makes a numpy array *of* numpy arrays, each containing a randomized deck of 'cards' (0 and 1 strings).
     num_decks (int): the number of decks to be generated.
     """
     deck_list = np.array([self.make_one_deck() for i in range(num_decks)])
@@ -57,10 +57,10 @@ class DecksStr:
       os.makedirs(subdir, exist_ok=True) 
             
       for i in range(0, num_decks, max_decks_per_file):
-          # chunk = self.decks[i : i + max_decks_per_file]
-          # filename = f"{base_filepath}decks_{i}-{i + chunk.shape[0]}.npz"
+
           chunk = self.decks[i : i + max_decks_per_file]
           start, end = i, i + chunk.shape[0] - 1
           filename = os.path.join(subdir, f"decks_{start+1}-{end+1}.npz")
           np.savez_compressed(filename, decks=chunk)
+
       return None

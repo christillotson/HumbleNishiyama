@@ -2,15 +2,12 @@ import os
 import numpy as np
 from src.run_methods_as_functions import method_1_funct, method_2_funct
 
-# # deleting wrapper_log.txt if it already exists, so that any tests run in the program are the only ones recorded.
+# deleting wrapper_log.txt if it already exists, so that any tests run in the program are the only ones recorded.
 
-# file_path = "./logs/wrapper_log.txt"
-# if os.path.exists(file_path):
-#     os.remove(file_path)
-#     print("File deleted.")
-# else:
-#     print("File not found.")
-
+wrapper_log_path = "./data/wrapper_log.txt"
+if os.path.exists(wrapper_log_path):
+    os.remove(wrapper_log_path)
+    print("We found an existing test log file with data already in it -- it has been deleted.")
 
 # we will run 5 experiments, on 5 different numbers of decks of cards
 NUM_DECKS_TO_TEST = [1_000, 10_000, 100_000]

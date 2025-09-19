@@ -39,11 +39,11 @@ def summarize_experiments_to_file(log_path: str, filename: str = "experiment_sum
             for method in methods:
                 header = f"\n=== Method: {method} | num_decks: {num_decks} ==="
                 header2 = f"\n{'attribute':15s} | {'mean':10s} | {'median':10s} | {'std':10s}"
-                header_sep = f"\n{"--------":15s} | {"--------":10s} | {"--------":10s} | {"--------":10s}"
+                header_sep = f"{"--------":15s} | {"--------":10s} | {"--------":10s} | {"--------":10s}"
                 print(header)
                 print(header2)
                 print(header_sep)
-                f.write(header + header2 + header_sep + "\n")
+                f.write(header + "\n" + header2 + "\n" + header_sep + "\n")
                 
                 for col in numeric_cols:
                     mean_val = summary.loc[(num_decks, method), (col, "mean")]

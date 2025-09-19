@@ -22,6 +22,8 @@ def timer(fun: Callable) -> Callable:
         # Bind provided args/kwargs to the function signature
         bound = sig.bind_partial(*args, **kwargs)
 
+        # this is a simple function developed by ChatGPT to get the name of whatever parameters are passed in as a string.
+        # the purpose of this 
         def _value_for_param(name: str):
             if name in bound.arguments:
                 return bound.arguments[name]
@@ -35,21 +37,32 @@ def timer(fun: Callable) -> Callable:
         num_decks = _value_for_param("num_decks")
         random_seed = _value_for_param("random_seed")
         base_path = _value_for_param("base_path")
+        write_decks_to_file = _value_for_param("write_decks_to_file") # this should be a boolean
+
         time_taken = t1 - t0 # this is in seconds
+        memory = results.nbytes
 
         # need to calculate path based on specific values passed
         full_data_path = os.path.join(base_path, f"{num_decks}_decks_seed_{random_seed}")
         
-        total_size = sum(entry.stat().st_size for entry in os.scandir(full_data_path) if entry.is_file())
+        if write_decks_to_file == True:
+            total_size = sum(entry.stat().st_size for entry in os.scandir(full_data_path) if entry.is_file())
+        else:
+            print("WARNING: not writing to file because write_decks_to_file is not True. \n")
+            print("Not sure why you'd do something wacky like this,\n")
+            print("but for the sake of continuity, the storage size will be set to zero.")
+            total_size = 0
 
-        print(f"Ran for {time_taken:.6f} sec(s)")
+        # print(f"Ran for {time_taken:.6f} sec(s)")
+
+        # print(f"Memory size is {results.nbytes}")
 
         # Write header only if file doesn’t exist or is empty
         need_header = not os.path.exists(LOG_FILE) or os.path.getsize(LOG_FILE) == 0
         with open(LOG_FILE, "a", encoding="utf-8") as fh:
             if need_header:
-                fh.write("num_decks,random_seed,time_taken,method,storage_size\n")
-            fh.write(f"{num_decks},{random_seed},{time_taken:.6f},{fun.__name__},{total_size}\n")
+                fh.write("num_decks,random_seed,method,storage_bytes,memory_bytes,time_taken\n")
+            fh.write(f"{num_decks},{random_seed},{fun.__name__},{total_size},{memory},{time_taken:.6f}\n")
 
         return results   # return AFTER logging
     

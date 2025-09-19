@@ -1,6 +1,7 @@
 import os
 import numpy as np
 from src.run_methods_as_functions import method_1_funct, method_2_funct
+from src.results import summarize_experiments_to_file
 
 # deleting wrapper_log.txt if it already exists, so that any tests run in the program are the only ones recorded.
 
@@ -25,3 +26,5 @@ for i, num_decks in enumerate(NUM_DECKS_TO_TEST):
         random_seed += 1
         decks_method_1 = method_1_funct(num_decks=num_decks, random_seed=random_seed)
         decks_method_2 = method_2_funct(num_decks=num_decks, random_seed=random_seed) 
+
+summarize_experiments_to_file(wrapper_log_path)

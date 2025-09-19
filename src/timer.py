@@ -7,7 +7,7 @@ from functools import wraps
 def timer(fun: Callable) -> Callable:
     sig = inspect.signature(fun)
 
-    SHOW_ARGS = True
+    SHOW_ARGS = False
     LOG_FILE = "./data/wrapper_log.txt"
 
     @wraps(fun)

@@ -57,5 +57,4 @@ class DecksInt:
           start, end = i, i + chunk.shape[0] - 1
           filename = os.path.join(subdir, f"decks_{start+1}-{end+1}.npz")
           np.savez_compressed(filename, decks=chunk)
-          print(f"Saved {filename} with {chunk.shape[0]} decks")
       return None

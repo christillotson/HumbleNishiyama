@@ -20,7 +20,8 @@ NUM_TIMES_TO_RUN_EXPERIMENT = [30, 15, 10]
 random_seed = 440
 
 for i, num_decks in enumerate(NUM_DECKS_TO_TEST):
+    print(f'Generating {num_decks} decks {NUM_TIMES_TO_RUN_EXPERIMENT[i]} times...')
     for rep in range(NUM_TIMES_TO_RUN_EXPERIMENT[i]):
         random_seed += 1
         decks_method_1 = method_1_funct(num_decks=num_decks, random_seed=random_seed)
-        decks_method_2 = method_2_funct(num_decks=num_decks, random_seed=random_seed)
+        decks_method_2 = method_2_funct(num_decks=num_decks, random_seed=random_seed) 

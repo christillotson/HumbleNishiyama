@@ -70,23 +70,34 @@ def score_a_deck(deck, player1seq, player2seq, to_print = True):
       print(num_tricks_player2)
       print(num_tricks_player1)
 
-
+    p1_win_card = 0
     p2_win_card = 0
     draw_card=0
+    p1_win_trick = 0
     p2_win_trick=0
     draw_trick=0
 
     if num_cards_player2 > num_cards_player1:
-        p2_win_card += 1 # Doing += because I was having issues with defining variable wrong name at first so this will ensure it is checked to actually exist
-    elif num_cards_player2 == num_cards_player1:
+      p2_win_card += 1 # Doing += because I was having issues with defining variable wrong name at first so this will ensure it is checked to actually exist
+    elif num_cards_player1 > num_cards_player2:
+      p1_win_card += 1
+    else:
         draw_card += 1
 
     if num_tricks_player2 > num_tricks_player1:
-        p2_win_trick += 1
-    elif num_tricks_player2 == num_tricks_player1:
-        draw_trick += 1
+      p2_win_trick += 1
+    elif num_tricks_player1 > num_tricks_player2:
+      p1_win_trick += 1
+    else:
+      draw_trick += 1
 
-    return_dict = {'p2_win_card':p2_win_card, 'draw_card':draw_card, 'p2_win_trick':p2_win_trick, 'draw_trick':draw_trick}
+
+    return_dict = {'p1_win_card':p1_win_card, 
+                   'p2_win_card':p2_win_card, 
+                   'draw_card':draw_card, 
+                   'p1_win_trick':p1_win_trick,
+                   'p2_win_trick':p2_win_trick, 
+                   'draw_trick':draw_trick}
 
 
     return return_dict

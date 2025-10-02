@@ -10,7 +10,7 @@ class HNDB(BaseDB):
         
     def __init__(self,
                  path: str,
-                 data_DF:pd.DataFrame,
+                 data_DF:pd.DataFrame = pd.DataFrame(),
                  
                  # this should be a folder, within which will be at least two other folders, 
                  #named to_load and loaded

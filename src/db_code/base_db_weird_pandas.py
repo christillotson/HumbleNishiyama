@@ -21,10 +21,9 @@ class BaseDB:
 
     def __init__(self,
                  path: str,
-                 data_DF:pd.DataFrame, 
-                 
-                 # this should be a folder, within which will be at least two other folders, 
-                 #named to_load and loaded
+                 data_DF:pd.DataFrame = pd.DataFrame(),  # creating as empty because for reading don't need it
+                 # but for writing and creating (creating really just writing with empty csv) should include
+            
                  
                  create: bool = False,
                  load_new_data:bool = False,

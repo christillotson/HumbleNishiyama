@@ -9,35 +9,10 @@ def read_db() -> pd.DataFrame:
 
     path_string = os.path.join('database','HN_DB')
 
-    data_path = "./empty_hn_data.csv" # just including because data_DF required
-    empty_df = pd.read_csv(data_path)
-
-    table_name_constant = ['tScore']
-
-    table_create_constant = [
-    """
-    CREATE TABLE tScore ( 
-        p1choice TEXT NOT NULL,
-        p2choice TEXT NOT NULL,
-        p1_win_cards INTEGER NOT NULL,
-        p2_win_cards INTEGER NOT NULL,
-        draw_cards INTEGER NOT NULL,
-        p1_win_tricks INTEGER NOT NULL,
-        p2_win_tricks INTEGER NOT NULL,
-        draw_tricks INTEGER NOT NULL,
-        times_run INTEGER NOT NULL,
-        PRIMARY KEY (p1choice, p2choice)
-    )
-    ;"""
-    ]
-
     db = HumbleNishiyama.HNDB(
         path = path_string,
-        data_DF = empty_df,
         create = False,
         load_new_data = False,
-        list_of_table_names_constant=table_name_constant,
-        list_of_create_sqls_constant=table_create_constant
         )
 
     sql = """

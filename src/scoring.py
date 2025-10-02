@@ -1,5 +1,8 @@
 import os
 import numpy as np
+import itertools
+import pandas as pd
+from collections import defaultdict
 
 def import_decks(subfolder_name, base_path="./data/method_1/"):
     """
@@ -169,3 +172,46 @@ def score_a_deck_pointers(deck, player1seq, player2seq, to_print = True):
 
 
     return return_dict
+
+
+def bits_to_string(bits):
+    """
+    Because our generated decks are stored as arrays of 0s and 1s, 
+    we want to convert the 0s into 'B' and the 1s into 'R'
+    for the human reader to understand that we are playing with cards :)
+    """
+    mapping = {0: "B", 1: "R"}
+    return "".join(mapping[b] for b in bits)
+
+def batch_score_all_combos(decks):
+  """
+  Function that scores an array of decks of cards based on p1 and p2 wins (and draws), 
+  both in terms of cards and in terms of tricks, on all 56 valid combinations of games.
+  Returns a pandas dataframe of the results.
+  """
+  # generating all possible game combinations (there are 8 of them)
+  lists_3 = [list(x) for x in itertools.product([0, 1], repeat=3)]
+
+  # making a list of tuples, each tuple containing 2 card selection lists (excluding games that are identical) (there are 56 of them)
+  pairs = [(a, b) for a in lists_3 for b in lists_3 if a != b]
+
+  all_games = [] # list that eventually stores all 56 game results
+
+  for card_combo in pairs: # looping through every valid game combination
+
+    one_game_sums = defaultdict(int) # defining a dict for the single game being played and scored in this loop iteration
+
+    # putting some information about the specific game being played into that dictionary
+    one_game_sums['p1choice'] = bits_to_string(card_combo[0])
+    one_game_sums['p2choice'] = bits_to_string(card_combo[1])
+    one_game_sums['times_run'] = len(decks)
+
+    #looping through and summing the statistics for each game.
+    for deck in decks:
+        deck_score = score_a_deck(deck, card_combo[0], card_combo[1], to_print = False)
+        for key, value in deck_score.items():
+          one_game_sums[key] += value
+
+    all_games.append(one_game_sums)
+
+  return pd.DataFrame(all_games)

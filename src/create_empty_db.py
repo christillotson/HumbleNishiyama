@@ -4,11 +4,11 @@ import sqlite3
 import numpy as np
 import pandas as pd
 
-import HumbleNishiyama
+from src.HumbleNishiyama import HNDB
 
 def create_empty() -> None:
 
-    path_string = os.path.join('database','HN_DB')
+    path_string = os.path.join('src','database','HN_DB')
 
     if os.path.exists(path_string):
         os.remove(path_string)
@@ -35,10 +35,10 @@ def create_empty() -> None:
     ;"""
     ]
 
-    data_path = "./empty_hn_data.csv"
+    data_path = "./src/empty_hn_data.csv"
     empty_df = pd.read_csv(data_path)
 
-    db = HumbleNishiyama.HNDB(
+    db = HNDB(
         path = path_string,
         data_DF = empty_df,
         create = True,

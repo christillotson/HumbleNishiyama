@@ -97,12 +97,12 @@ def score_a_deck(deck, player1seq, player2seq, to_print = True):
       draw_trick += 1
 
 
-    return_dict = {'p1_win_card':p1_win_card, 
-                   'p2_win_card':p2_win_card, 
-                   'draw_card':draw_card, 
-                   'p1_win_trick':p1_win_trick,
-                   'p2_win_trick':p2_win_trick, 
-                   'draw_trick':draw_trick}
+    return_dict = {'p1_win_cards':p1_win_card, 
+                   'p2_win_cards':p2_win_card, 
+                   'draw_cards':draw_card, 
+                   'p1_win_tricks':p1_win_trick,
+                   'p2_win_tricks':p2_win_trick, 
+                   'draw_tricks':draw_trick}
 
 
     return return_dict
@@ -170,7 +170,7 @@ def score_a_deck_pointers(deck, player1seq, player2seq, to_print = True):
     elif num_tricks_player2 == num_tricks_player1:
         draw_trick += 1
 
-    return_dict = {'p2_win_card':p2_win_card, 'draw_card':draw_card, 'p2_win_trick':p2_win_trick, 'draw_trick':draw_trick}
+    return_dict = {'p2_win_cards':p2_win_card, 'draw_cards':draw_card, 'p2_win_tricks':p2_win_trick, 'draw_tricks':draw_trick}
 
 
     return return_dict

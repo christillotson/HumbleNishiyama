@@ -3,13 +3,13 @@ import sqlite3
 import numpy as np
 import pandas as pd
 
-import HumbleNishiyama
+from src.HumbleNishiyama import HNDB
 
 def read_db() -> pd.DataFrame:
 
-    path_string = os.path.join('database','HN_DB')
+    path_string = os.path.join('src','database','HN_DB')
 
-    db = HumbleNishiyama.HNDB(
+    db = HNDB(
         path = path_string,
         create = False,
         load_new_data = False,

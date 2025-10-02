@@ -3,14 +3,14 @@ import sqlite3
 import numpy as np
 import pandas as pd
 
-import HumbleNishiyama
+from src.HumbleNishiyama import HNDB
 
 def add_new(data_DF:pd.DataFrame
             ) -> None:
 
-    path_string = os.path.join('database','HN_DB')
+    path_string = os.path.join('src','database','HN_DB')
 
-    db = HumbleNishiyama.HNDB(
+    db = HNDB(
         path = path_string,
         data_DF = data_DF,
         create = False,

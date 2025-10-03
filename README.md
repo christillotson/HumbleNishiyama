@@ -20,4 +20,6 @@ then to DO DECK SCORING:
 
 `uv run run_scoring.py`
 
-This will run on a pre-defined set of 1000 decks, print the results of that, add it to the database, print the database contents, and write them to **db_out/database_output.csv**.
+This will run on a pre-defined set of 1000 decks, print the results of that, add it to the database, print the database contents, and write them to **data/db_out/database_output.csv**.
+
+You may also read more about our scoring logic in **Scoring.md**

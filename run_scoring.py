@@ -25,16 +25,25 @@ print(database_now) # optional print
 ## todo: save the output of read_db as a csv
 
 def save_df_to_csv(df: pd.DataFrame, path: str):
-    # If file exists, remove it
+    # Separate the directory from the file path
+    directory = os.path.dirname(path)
+
+    # Create the directory if it doesn't exist
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+        print(f"Created directory: {directory}")
+
+    # If the file exists, remove it
     if os.path.exists(path):
-        print(f"removing old database snapshot {path}")
+        print(f"Removing old database snapshot: {path}")
         os.remove(path)
+
     # Save DataFrame to CSV
     df.to_csv(path, index=False)
-    print(f"Saving database contents as {path}")
+    print(f"Saving database contents as: {path}")
 
-
-save_df_to_csv(database_now, "./db_out/database_output.csv")
+# Example usage
+save_df_to_csv(database_now, "./data/db_out/database_output.csv")
 
 # ### Below is code to iterate over all decks
 

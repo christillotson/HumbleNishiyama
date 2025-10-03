@@ -6,23 +6,26 @@ import os
 from src.scoring import import_decks, batch_score_all_combos
 from src.db_code.interact_db import create_empty, add_new, read_db
 
+PATH_TO_DB_SNAPSHOT = "./data/db_out/database_output.csv"
+
+# Hardcoded deck to test our functionality. Only 1000 decks. Commented code below will iterate over all decks (takes forever)
 decks_10k = import_decks(subfolder_name = '1000_decks_seed_441')
 decks_10k_df= batch_score_all_combos(decks_10k)
 
 print(decks_10k_df)
 
 # create_empty() 
-# # running above will reset the database
+# # uncommenting and running immediately above will reset the database
 
+# Add this data to the database
 add_new(decks_10k_df)
 
 database_now = read_db()
 
-print(database_now) # optional print
-
-## todo: save the output of read_db as a csv
+print(database_now) # optional print to see database output
 
 def save_df_to_csv(df: pd.DataFrame, path: str):
+
     # Separate the directory from the file path
     directory = os.path.dirname(path)
 
@@ -40,22 +43,19 @@ def save_df_to_csv(df: pd.DataFrame, path: str):
     df.to_csv(path, index=False)
     print(f"Saving database contents as: {path}")
 
-# Example usage
-save_df_to_csv(database_now, "./data/db_out/database_output.csv")
+save_df_to_csv(database_now, PATH_TO_DB_SNAPSHOT)
 
-# ### Below is code to iterate over all decks
+### BEGIN Below is code to iterate over all decks
 
 # def get_folder_names(path: str):
 #     return [name for name in os.listdir(path) if os.path.isdir(os.path.join(path, name))]
 # folders = get_folder_names("./data/method_1")
-# print(folders)
+# # print(folders) # optional
 
 # for subfolder in folders:
 
 #     decks_object = import_decks(subfolder_name = subfolder)
 #     score_df = batch_score_all_combos(decks_object)
-
-#     # print(decks_10k_df)
 
 #     # create_empty() 
 #     # # running above will reset the database
@@ -66,6 +66,6 @@ save_df_to_csv(database_now, "./data/db_out/database_output.csv")
 
 # print(database_now)
 
-# save_df_to_csv(database_now, "database_output.csv")
+# save_df_to_csv(database_now, PATH_TO_DB_SNAPSHOT)
 
 ### END MANY DECK CODE

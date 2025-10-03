@@ -11,10 +11,6 @@ class HNDB(BaseDB):
     def __init__(self,
                  path: str,
                  data_DF:pd.DataFrame = pd.DataFrame(),
-                 
-                 # this should be a folder, within which will be at least two other folders, 
-                 #named to_load and loaded
-                 
                  create: bool = False,
                  load_new_data:bool = False,
                  
@@ -26,7 +22,6 @@ class HNDB(BaseDB):
         super().__init__(
                         path,
                         data_DF,
-                        
                         create,
                         load_new_data,
                         
@@ -36,7 +31,7 @@ class HNDB(BaseDB):
                     )
     
     def _load_new_data(self) -> None: # I asked ChatGPT to help with this btw
-        print('_load_new_data function activated')
+        print('Loading new data.')
     
         try:
             current_pd = self.data_DF
@@ -47,7 +42,7 @@ class HNDB(BaseDB):
                                  'p2_win_tricks', 'draw_tricks',
                                  'times_run']]
     
-            # UPSERT statement: if (p1choice,p2choice) already exists, increment counts
+            # UPSERT statement: if (p1choice,p2choice) already exists, increment score counts
             
             sql_upsert = """
             INSERT INTO tScore (p1choice, p2choice, p1_win_cards, p2_win_cards, draw_cards, p1_win_tricks, p2_win_tricks, draw_tricks, times_run)
@@ -61,6 +56,9 @@ class HNDB(BaseDB):
                 draw_tricks  = draw_tricks  + excluded.draw_tricks,
                 times_run    = times_run    + excluded.times_run;
             """
+            # Tries to do an insert, and if it doesn't work (which it should never do because those values already exist)
+            # Add what already exists to what you already tried to add
+            # Ensures functionality when first creating the table, because the database is initialized from a csv of zeroes
     
             # Loop through the dataframe and apply UPSERT
             for _, row in scores.iterrows():
@@ -71,10 +69,10 @@ class HNDB(BaseDB):
                     commit=True
                 )
     
-            print(f'processed pandas dataframe')
+            print(f'Processed pandas dataframe.')
     
         except Exception as e:
-            print(f'something went wrong with the dataframe you passed in')
+            print(f'Something went wrong with the dataframe you passed in.')
             self._conn.rollback()
             self._close()
             raise

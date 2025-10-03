@@ -1,6 +1,3 @@
-# be careful with copy and pasting
-# basically in here go through billboard.py and get through everything except body of function
-
 import os
 import sqlite3
 import numpy as np
@@ -16,17 +13,17 @@ class BaseDB:
     '''
     This class contains code that can be used with any sqlite database. Or at least, that's what it's designed to do.
 
-    Implement a different function to make a continuously updating database.
+    Implement a _load_new_data method to make a continuously updating database.
     '''
 
     def __init__(self,
                  path: str,
                  data_DF:pd.DataFrame = pd.DataFrame(),  # creating as empty because for reading don't need it
                  # but for writing and creating (creating really just writing with empty csv) should include
-            
                  
                  create: bool = False,
                  load_new_data:bool = False,
+
                  list_of_table_names_constant: list = [],
                  list_of_table_paths_constant: list = [],
                  list_of_create_sqls_constant: list = [],
@@ -35,9 +32,14 @@ class BaseDB:
         Arguments
             path: The path to the database file
 
+            data_DF: The data that is added (if creating from the empty csv or adding new data)
+            By default an empty pandas dataframe because it's not necessary to pass in when being read
+
             create: If the database does not exist, it will be created
                     if this is set to True, otherwise a FileNotFound
                     error will be raised.
+
+            load_new_data: Whether or not new data is being loaded
 
             *The following three are associated with each table and should be of the same
             index within each list. Each are for tables that are constant (do not change)*
@@ -51,9 +53,7 @@ class BaseDB:
             list_of_create_sqls: The sql commands to execute to create each table. Includes tables which will be changed.       
         '''
 
-        self.path = path # needs to occur BEFORE things that use it, such as self._check_exists
-        #set to not connected by default
-
+        self.path = path 
         self.data_DF = data_DF
 
         # creating lists
@@ -130,7 +130,7 @@ class BaseDB:
 
             # this is called ORM object relational mode
             # creating a system where dont have to do sql myhself
-            # just avoid opublicly facing database f strings because can be insterted by public
+            # just avoid publicly facing database f strings because can be insterted by public
 
             for row in globals()[self.list_of_table_names[i]].to_dict(orient = 'records'):
                 self.run_action(sql, params = row, keep_open = True)
@@ -271,7 +271,3 @@ class BaseDB:
         if not keep_open:
             self._close()
         return self._curs.lastrowid
-
-
-        # as playing around with databases moving forward could add more code, but this is bare minimum, almost all is in billboard
-        # dont just copy and paste from billboard.py

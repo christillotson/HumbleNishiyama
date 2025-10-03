@@ -6,8 +6,9 @@ import pandas as pd
 from src.db_code.HumbleNishiyama import HNDB
 
 PATH_TO_DB = os.path.join('src','db_code','database','HN_DB')
+PATH_TO_EMPTY = os.path.join('src','db_code','empty_hn_data.csv')
 
-def create_empty(path_string = PATH_TO_DB) -> None:
+def create_empty(path_string = PATH_TO_DB, path_to_empty = PATH_TO_EMPTY) -> None:
 
     if os.path.exists(path_string):
         os.remove(path_string)
@@ -34,8 +35,7 @@ def create_empty(path_string = PATH_TO_DB) -> None:
     ;"""
     ]
 
-    data_path = "./src/empty_hn_data.csv"
-    empty_df = pd.read_csv(data_path)
+    empty_df = pd.read_csv(path_to_empty)
 
     db = HNDB(
         path = path_string,

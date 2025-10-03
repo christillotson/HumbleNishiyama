@@ -34,7 +34,7 @@ def save_df_to_csv(df: pd.DataFrame, path: str):
     print(f"Saving database contents as {path}")
 
 
-save_df_to_csv(database_now, "database_output.csv")
+save_df_to_csv(database_now, "./db_out/database_output.csv")
 
 # ### Below is code to iterate over all decks
 

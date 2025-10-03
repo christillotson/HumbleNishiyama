@@ -8,10 +8,16 @@ Navigate to the top-level directory (HumbleNishiyama folder) of this repo and ru
 
 (to get some required libraries)
 
-then
+then to DO DATA GENERATION:
 
-`uv run python run_tests.py`
+`uv run run_tests.py`
 
 This will create the data folder locally, containing the deck files (.npz) for each method, as well as a log file (.txt) and summary of results (.txt) in a table. These results will also be printed to the terminal.
 
 See our explanations for methods 1 and 2 in DataGeneration.md
+
+then to DO DECK SCORING:
+
+`uv run run_scoring.py`
+
+This will run on a pre-defined set of 1000 decks, print the results of that, add it to the database, print the database contents, and write them to **db_out/database_output.csv**.

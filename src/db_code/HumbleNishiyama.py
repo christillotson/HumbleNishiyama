@@ -1,4 +1,4 @@
-from src.base_db_weird_pandas import BaseDB
+from src.db_code.base_db_weird_pandas import BaseDB
 
 import os
 import sqlite3

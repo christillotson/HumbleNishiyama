@@ -4,9 +4,7 @@ import pandas as pd
 import os
 
 from src.scoring import import_decks, batch_score_all_combos
-from src.create_empty_db import create_empty
-from src.add_new_data_db import add_new
-from src.read_db import read_db
+from src.db_code.interact_db import create_empty, add_new, read_db
 
 decks_10k = import_decks(subfolder_name = '1000_decks_seed_441')
 decks_10k_df= batch_score_all_combos(decks_10k)

@@ -1,14 +1,13 @@
-# Create an empty HN database based on empty_hn_data.csv
 import os
 import sqlite3
 import numpy as np
 import pandas as pd
 
-from src.HumbleNishiyama import HNDB
+from src.db_code.HumbleNishiyama import HNDB
 
-def create_empty() -> None:
+PATH_TO_DB = os.path.join('src','db_code','database','HN_DB')
 
-    path_string = os.path.join('src','database','HN_DB')
+def create_empty(path_string = PATH_TO_DB) -> None:
 
     if os.path.exists(path_string):
         os.remove(path_string)
@@ -47,3 +46,33 @@ def create_empty() -> None:
         list_of_create_sqls_constant=table_create_constant
         )
     return
+
+def add_new(data_DF:pd.DataFrame,
+            path_string = PATH_TO_DB) -> None:
+
+    db = HNDB(
+        path = path_string,
+        data_DF = data_DF,
+        create = False,
+        load_new_data = True,
+        )
+    
+    return
+
+def read_db(path_string = PATH_TO_DB) -> pd.DataFrame:
+
+    db = HNDB(
+        path = path_string,
+        create = False,
+        load_new_data = False,
+        )
+
+    sql = """
+    SELECT * FROM tScore
+    ;"""
+
+    pd.set_option('display.max_rows', 100) # max just needs to be higher than 56 data + 1 column that is going on for this implementation
+    
+    query_run = db.run_query(sql)
+
+    return(query_run)

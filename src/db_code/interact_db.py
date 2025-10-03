@@ -5,6 +5,15 @@ import pandas as pd
 
 from src.db_code.HumbleNishiyama import HNDB
 
+'''
+This file is designed to re-work interaction with the database 
+as created with base_db_weird_pandas.py and HumbleNishiyama.py
+into simple functions to execute. The database can 
+be created from an existing empty csv, 
+have new data loaded,
+and read into a pandas DataFrame object, to be printed or saved to a csv. 
+'''
+
 PATH_TO_DB = os.path.join('src','db_code','database','HN_DB')
 PATH_TO_EMPTY = os.path.join('src','db_code','empty_hn_data.csv')
 

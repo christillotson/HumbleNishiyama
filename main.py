@@ -27,7 +27,10 @@ if os.path.exists(summary_log_path):
 # We will run 5 experiments, on 5 different numbers of decks of cards.
 # For now this should be same length as num times to run experiment.
 
-num_decks_to_generate = int(input("Please enter, with no commas or spaces, the number of new decks you want to generate and score."))
+try:
+    num_decks_to_generate = int(input("Please enter, with no commas or spaces, the number of new decks you want to generate and score: "))
+except:
+    print("Something's gone wrong with how you entered the number. Please try again later.")
 random_seed = random.randint(1, 1_000_000)
 print(f'To confirm, you are generating {num_decks_to_generate} decks with a randomly selected seed of {random_seed}.')
 print('Generating now!....')

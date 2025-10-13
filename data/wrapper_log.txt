@@ -1,2 +1,2 @@
 num_decks,random_seed,method,storage_bytes,memory_bytes,time_taken
-10,229237,method_1_funct,338,520,0.000000
+3,423098,method_1_funct,258,156,0.011847

@@ -1,5 +1,5 @@
 
-=== Method: method_1_funct | num_decks: 10 ===
+=== Method: method_1_funct | num_decks: 8 ===
 
 attribute       | mean       | median     | std       
 --------        | --------   | --------   | --------  

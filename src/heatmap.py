@@ -7,6 +7,7 @@ import numpy as np
 GAME_ORDER = ['BBB', 'BBR', 'BRB', 'BRR', 'RBB', 'RBR', 'RRB', 'RRR']
 PLOTS_PATH = "./plots"
 
+## This function written iteratively with ChatGPT
 def make_heatmap(scoring_method, input_df, GAME_ORDER=GAME_ORDER, PLOTS_PATH=PLOTS_PATH):
     # Ensure output directory exists
     os.makedirs(PLOTS_PATH, exist_ok=True)
@@ -32,14 +33,15 @@ def make_heatmap(scoring_method, input_df, GAME_ORDER=GAME_ORDER, PLOTS_PATH=PLO
             annotations.iloc[i, j] = f"{win_pct:.0f}({draw_pct:.0f})"
 
     # Plot heatmap
-    plt.figure(figsize=(8, 6))
+    plt.figure(figsize=(8, 8))
     ax = sns.heatmap(
         win_data,
         annot=annotations,
         fmt="",
         cmap="RdBu",
         center=0.5,
-        cbar_kws={'label': 'P2 (Me) Win Probability'},
+        cbar = False, # turns off the colorbar
+        # cbar_kws={'label': 'P2 (Me) Win Probability'},
         linewidths=0.5,      # white gridlines
         linecolor='white'
     )
@@ -54,9 +56,9 @@ def make_heatmap(scoring_method, input_df, GAME_ORDER=GAME_ORDER, PLOTS_PATH=PLO
     sample_size = int(card_df["times_run"].iloc[0])
 
     # Labels and title
-    plt.title(f"P2 Win % ({sample_size:,} simulations) \n by {scoring_method} \n Wins(Draws)")
-    plt.xlabel("P2 (My) Choice")
-    plt.ylabel("P1 (opponent) Choice")
+    plt.title(f"My Win % ({sample_size:,} simulations) \n by {scoring_method} \n Wins(Draws)")
+    plt.xlabel("My Choice")
+    plt.ylabel("Opponent Choice")
 
     # Save and show
     output_path = os.path.join(PLOTS_PATH, f"heatmap_{scoring_method}.png")
@@ -64,4 +66,4 @@ def make_heatmap(scoring_method, input_df, GAME_ORDER=GAME_ORDER, PLOTS_PATH=PLO
     plt.savefig(output_path, dpi=300)
     # plt.show() # I think this makes it run infinitely
 
-    print(f"✅ Heatmap saved to {output_path}")
+    print(f"✅ Heatmap saved to {output_path}") # eyecatching emoji

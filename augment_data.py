@@ -16,10 +16,17 @@ wrapper_log_path = "./data/wrapper_log.txt"
 # Path to where meta-statistics (mean, std, etc) about each unique parameter combination are stored.
 summary_log_path = "./data/experiment_summary.txt"
 
+PATH_TO_DB = os.path.join('src','db_code','database','HN_DB')
+PATH_TO_EMPTY = os.path.join('src','db_code','empty_hn_data.csv')
+
 PATH_TO_DB_SNAPSHOT = "./data/db_out/database_output.csv"
+
 
 # Deleting wrapper_log.txt and experiment_summary.txt files if they already exist, 
 # so that any tests run in the program are the only ones recorded.
+
+if not os.path.exists(PATH_TO_DB):
+    create_empty(path_string = PATH_TO_DB, path_to_empty = PATH_TO_EMPTY)
 
 if os.path.exists(wrapper_log_path):
     os.remove(wrapper_log_path)
@@ -55,9 +62,9 @@ if num_decks_to_generate != 0:
     # # uncommenting and running immediately above will reset the database
 
     # Add this data to the database
-    add_new(decks_to_score_df)
+    add_new(data_DF = decks_to_score_df, path_string = PATH_TO_DB)
 
-database_now = read_db() # REFERENCE THIS DF DURING HEATMAP GENERATION!!!
+database_now = read_db(path_string = PATH_TO_DB) # REFERENCE THIS DF DURING HEATMAP GENERATION!!!
 
 print(database_now) # optional print to see database output
 

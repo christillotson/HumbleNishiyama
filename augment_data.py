@@ -16,6 +16,8 @@ wrapper_log_path = "./data/wrapper_log.txt"
 # Path to where meta-statistics (mean, std, etc) about each unique parameter combination are stored.
 summary_log_path = "./data/experiment_summary.txt"
 
+PATH_TO_DB_SNAPSHOT = "./data/db_out/database_output.csv"
+
 # Deleting wrapper_log.txt and experiment_summary.txt files if they already exist, 
 # so that any tests run in the program are the only ones recorded.
 
@@ -28,33 +30,32 @@ if os.path.exists(summary_log_path):
     #print("We found an existing statistical summary log file with data already in it -- it has been deleted.")
 
 try:
-    num_decks_to_generate = int(input("Please enter, with no commas or spaces, the number of new decks you want to generate and score: "))
+    num_decks_to_generate = int(input("Please enter, with no commas or spaces, \nthe number of new decks you want to generate and score, or 0 to just get heatmaps: "))
 except:
     print("Something's gone wrong with how you entered the number. Please try again later.")
 
-random_seed = random.randint(1, 1_000_000)
-print(f'To confirm, you are generating {num_decks_to_generate} decks with a randomly selected seed of {random_seed}.')
-print('Generating now!....')
-decks_method_1 = method_1_funct(num_decks = num_decks_to_generate, random_seed = random_seed)
+if num_decks_to_generate != 0:
+    random_seed = random.randint(1, 1_000_000)
+    print(f'To confirm, you are generating {num_decks_to_generate} decks with a randomly selected seed of {random_seed}.')
+    print('Generating now!....')
+    decks_method_1 = method_1_funct(num_decks = num_decks_to_generate, random_seed = random_seed)
 
-# Write to the experiment_summary.txt from wrapper_log.txt
-summarize_experiments_to_file(wrapper_log_path)
+    # Write to the experiment_summary.txt from wrapper_log.txt
+    summarize_experiments_to_file(wrapper_log_path)
 
-# --------------------------------------
+    # --------------------------------------
 
-PATH_TO_DB_SNAPSHOT = "./data/db_out/database_output.csv"
+    subfolder_name = f'{num_decks_to_generate}_decks_seed_{random_seed}'
+    decks_to_score = import_decks(subfolder_name = subfolder_name)
+    decks_to_score_df= batch_score_all_combos(decks_to_score)
 
-subfolder_name = f'{num_decks_to_generate}_decks_seed_{random_seed}'
-decks_to_score = import_decks(subfolder_name = subfolder_name)
-decks_to_score_df= batch_score_all_combos(decks_to_score)
+    print(decks_to_score_df)
 
-print(decks_to_score_df)
+    # create_empty() 
+    # # uncommenting and running immediately above will reset the database
 
-# create_empty() 
-# # uncommenting and running immediately above will reset the database
-
-# Add this data to the database
-add_new(decks_to_score_df)
+    # Add this data to the database
+    add_new(decks_to_score_df)
 
 database_now = read_db() # REFERENCE THIS DF DURING HEATMAP GENERATION!!!
 
@@ -86,5 +87,6 @@ print('------------------------------------')
 # PATH_TO_DB = os.path.join('src', 'db_code', 'database', 'HN_DB')
 # card_df = read_db(PATH_TO_DB)
 
-make_heatmap(scoring_method = "Tricks", card_df = database_now)
-e
+make_heatmap(scoring_method = "tricks", input_df = database_now)
+
+make_heatmap(scoring_method = "cards", input_df = database_now)

@@ -1,8 +1,8 @@
 
-=== Method: method_1_funct | num_decks: 3 ===
+=== Method: method_1_funct | num_decks: 10 ===
 
 attribute       | mean       | median     | std       
 --------        | --------   | --------   | --------  
 storage_mb      |       0.00 |       0.00 |        nan
 memory_mb       |       0.00 |       0.00 |        nan
-time_taken      |       0.01 |       0.01 |        nan
+time_taken      |       0.00 |       0.00 |        nan

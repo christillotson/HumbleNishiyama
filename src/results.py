@@ -37,6 +37,12 @@ def summarize_experiments_to_file(log_path: str, filename: str = "experiment_sum
     
     # Group by num_decks first, then method
     grouped = df.groupby(["num_decks", "method"])
+
+    # print("DEBUGGING")
+    # print(df.groupby(["num_decks", "method"]).size())
+    # if just running once, like not in an experiment but a single time augmenting, std will be nan 
+    # but this is correct because should be nan if only ran once
+
     # this is where the actual statistical values are being calculated
     summary = grouped[numeric_cols].agg(["mean", "median", "std"])
 

@@ -16,9 +16,6 @@ In this repository, we have performed a mass number of Monte-Carlo simulations i
 
 We see in these heatmaps that the top winning sequence, when scoring by cards, differs in some places, and overall the sequence win probabilities differ. This is obviously attributed to the difference in scoring method, but the reasons behind these differences are unclear and are worth investigating in the future.
 
-
-A "Quickstart" guide, telling a new user what they need to do to run your code and reproduce your results. Assume they already know what Python is, but link to the UV documentation in case the user does not know what UV is.
-
 ## Quickstart
 
 This project utilizes UV for library management. UV is a tool that is faster than pip and is our preferred way of preserving packages and versioning to ensure that this project can work on any machine. You can read more about it here:
@@ -37,6 +34,6 @@ run the command
 
 `uv run augment_data.py` 
 
-and enter in the input as prompted.
+and enter in the input as prompted. You can also enter '0' to just see the heatmaps of win probabilities based on current contents.
 
 This will score x number of new decks. The scores of each combination are stored in the database file in ./src/db_code/database/HN_DB. These can be viewed in the generated plots in ./plots, as heatmap_cards and heatmap_tricks.
